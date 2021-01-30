@@ -6,7 +6,7 @@ const(
 
 // Encode byte array to base58 with Bitcoin alphabet
 pub fn encode(input string) string {
-	return encode_walpha(input, btc_alphabet)
+	return encode_walpha(input, alphabets['btc'])
 }
 
 // Encode byte array to base58 with custom aplhabet
@@ -57,7 +57,7 @@ pub fn encode_walpha(input string, alphabet &Alphabet) string {
 
 // decodes base58 encoded bytes using the bitcoin alphabet
 pub fn decode(str string) ?string {
-	return decode_walpha(str, btc_alphabet)
+	return decode_walpha(str, alphabets['btc'])
 }
 
 // decodes base58 encoded bytes using custom alphabet

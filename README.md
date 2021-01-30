@@ -54,3 +54,8 @@ fn main() {
 	println('Decoded:\t$decoded')       // I did you know what with ur mom. *maniacal laugh*
 }
 ```
+
+### Donations
+Pls, I'm broke lol
+
+[![.NET Conf - November 10-12, 2020](https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png)](https://www.buymeacoffee.com/islonely)

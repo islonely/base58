@@ -1,8 +1,11 @@
 module base58
 
 const(
-	btc_alphabet = new_alphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
-	flickr_alphabet = new_alphabet('123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ')
+	alphabets = {
+		'btc':			new_alphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+		'flickr': 		new_alphabet('123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ')
+		'ripple':		new_alphabet('rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz')
+	}
 )
 
 struct Alphabet {
@@ -11,8 +14,12 @@ mut:
 	encode []byte = []byte{len: 58}
 }
 
-pub fn (alphabet Alphabet) str() string {
-	return alphabet.encode.str()
+pub fn (alphabet &Alphabet) str() string {
+	mut str := []byte{}
+	for entry in alphabet.encode {
+		str << entry
+	}
+	return str.bytestr()
 }
 
 pub fn new_alphabet(str string) &Alphabet {
