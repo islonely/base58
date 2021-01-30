@@ -11,11 +11,11 @@ mut:
 	encode []byte = []byte{len: 58}
 }
 
-fn (alphabet Alphabet) str() string {
+pub fn (alphabet Alphabet) str() string {
 	return alphabet.encode.str()
 }
 
-fn new_alphabet(str string) &Alphabet {
+pub fn new_alphabet(str string) &Alphabet {
 	if str.len != 58 {
 		panic('base58 > new_alphabet(string): string must be 58 characters in length')
 	}

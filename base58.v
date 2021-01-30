@@ -5,12 +5,13 @@ const(
 )
 
 // Encode byte array to base58 with Bitcoin alphabet
-pub fn encode(input []byte) string {
+pub fn encode(input string) string {
 	return encode_walpha(input, btc_alphabet)
 }
 
 // Encode byte array to base58 with custom aplhabet
-pub fn encode_walpha(bin []byte, alphabet &Alphabet) string {
+pub fn encode_walpha(input string, alphabet &Alphabet) string {
+	bin := input.bytes()
 	mut sz := bin.len
 
 	mut zcount := 0
