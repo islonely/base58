@@ -4,9 +4,10 @@ Fast implementation of Base58 encoding and decoding in V.
 Base algorithm is adapted from [mr-tron/base58](https://github.com/mr-tron/base58)
 
 ## Installation
+#### NOTE: There's currently a bug in the VPM in which it doesn't know how to handle the hyphen in my username. Because of this, the first install option currently does not work. I'll update this page once it's fixed.
 V must first be installed on your machine. You can get that from [vlang/v](https://github.com/vlang/v). After installing V execute this command to install this module to your system. And that's it!
 ```bash
-$ v install base58
+$ v install is-lonely.base58
 ```
 Or alternatively, inside the root directory of your V project execut this:
 ```bash
@@ -17,7 +18,8 @@ $ git clone https://github.com/is-lonely/base58
 ## Usage
 The default base58 alphabet is the same as the Bitcoin alphabet.
 ```v
-import base58
+import base58   // if you installed with 'v install is-lonely.base58'
+                // then you will need to use 'import is-lonely.base58'
 
 fn main() {
     input_string := 'placeholder'
