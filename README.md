@@ -23,8 +23,8 @@ $ git clone https://github.com/is-lonely/base58
 ## Usage
 The default base58 alphabet is the same as the Bitcoin alphabet.
 ```v
-import base58   // if you installed with 'v install is-lonely.base58'
-                // then you will need to use 'import is-lonely.base58'
+import base58   // if you installed with 'v install islonely.base58'
+                // then you will need to use 'import islonely.base58'
 
 fn main() {
     input_string := 'placeholder'
