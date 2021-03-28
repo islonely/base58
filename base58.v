@@ -2,20 +2,35 @@ module base58
 
 import math
 
-// Encode unsigned integer to base58 with Bitcoin alphabet
-pub fn encode_uint(input u32) string {
-	return encode_uint_walpha(input, alphabets['btc'])
+// Encodes any integer type to base58 string with bitcoin alphabet
+pub fn encode_int<T>(input T) ?string {
+	return encode_int_walpha<T>(input, alphabets['btc'])
 }
 
-// Encode unsigned integer to base58 with custom alphabet
-pub fn encode_uint_walpha(input u32, alphabet &Alphabet) string {
-	mut buffer := []byte{}
+// Encodes any integer type to base58 string with custom alphabet
+pub fn encode_int_walpha<T>(input T, alphabet &Alphabet) ?string {
+	tp := typeof(input).name
+	match tp {
+		'i8', 'i16', 'int', 'i64'/*, 'i128'*/, 'byte', 'u16', 'u32', 'u64'/*, 'u128'*/ {
+			if input < 0 {
+				return error(@MOD + '.' + @FN + ': input must be greater than zero')
+			}
 
-	mut i := input
-	for i > 0 {
-		remainder := i % 58
-		buffer << alphabet.encode[remainder]
-		i = i / 58
+			mut buffer := []byte{}
+
+			mut i := input
+			for i > 0 {
+				remainder := i % 58
+				buffer << alphabet.encode[i8(remainder)]		// This needs to be casted so byte inputs can
+																// be used. i8 because remainder will never be
+																// over 58.
+				i = i / 58
+			}
+
+			return buffer.reverse().bytestr()
+		} else {
+			return error(@MOD + '.' + @FN + ': generic must be of an integer type (byte, int, u64, etc.)')
+		}
 	}
 }
 
