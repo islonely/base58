@@ -17,8 +17,6 @@ pub fn encode_uint_walpha(input u32, alphabet &Alphabet) string {
 		buffer << alphabet.encode[remainder]
 		i = i / 58
 	}
-
-	return buffer.reverse().bytestr()
 }
 
 // Encode byte array to base58 with Bitcoin alphabet
@@ -71,14 +69,15 @@ pub fn encode_walpha(input string, alphabet &Alphabet) string {
 
 	return out[..sz].bytestr()
 }
-// Decodes base58 bytes into an unsigned integer using the bitcoin alphabet
-pub fn decode_uint(input string) ?u32 {
-	return decode_uint_walpha(input, alphabets['btc'])
+
+// Decodes base58 string to an integer with bitcoin alphabet
+pub fn decode_int<T>(input string) ?T {
+	return decode_int_walpha<T>(input, alphabets['btc'])
 }
 
-// Decodes base58 bytes into an unsigned integer using a custom alphabet
-pub fn decode_uint_walpha(input string, alphabet &Alphabet) ?u32 {
-	mut total := u32(0)		// to hold the results
+// Decodes base58 string to an integer with custom alphabet
+pub fn decode_int_walpha<T>(input string, alphabet &Alphabet) ?T {
+	mut total := T(0)		// to hold the results
 	b58 := input.reverse()
 	for i, ch in b58 {
 		ch_i := alphabet.encode.bytestr().index_byte(ch)
@@ -88,7 +87,7 @@ pub fn decode_uint_walpha(input string, alphabet &Alphabet) ?u32 {
 
 		val := ch_i * math.pow(58, i)
 
-		total += u32(val)
+		total += T(val)
 	}
 
 	return total
