@@ -72,12 +72,12 @@ pub fn encode_walpha(input string, alphabet &Alphabet) string {
 	return out[..sz].bytestr()
 }
 // Decodes base58 bytes into an unsigned integer using the bitcoin alphabet
-pub fn decode_u32(input string) ?u32 {
+pub fn decode_uint(input string) ?u32 {
 	return decode_uint_walpha(input, alphabets['btc'])
 }
 
 // Decodes base58 bytes into an unsigned integer using a custom alphabet
-pub fn decode_u32_walpha(input string, alphabet &Alphabet) ?u32 {
+pub fn decode_uint_walpha(input string, alphabet &Alphabet) ?u32 {
 	mut total := u32(0)		// to hold the results
 	b58 := input.reverse()
 	for i, ch in b58 {
