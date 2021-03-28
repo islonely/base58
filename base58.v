@@ -1,8 +1,25 @@
 module base58
 
-const(
-	err_invalid_base58_string = error('Invalid base58 string')
-)
+import math
+
+// Encode unsigned integer to base58 with Bitcoin alphabet
+pub fn encode_uint(input u32) string {
+	return encode_uint_walpha(input, alphabets['btc'])
+}
+
+// Encode unsigned integer to base58 with custom alphabet
+pub fn encode_uint_walpha(input u32, alphabet &Alphabet) string {
+	mut buffer := []byte{}
+
+	mut i := input
+	for i > 0 {
+		remainder := i % 58
+		buffer << alphabet.encode[remainder]
+		i = i / 58
+	}
+
+	return buffer.reverse().bytestr()
+}
 
 // Encode byte array to base58 with Bitcoin alphabet
 pub fn encode(input string) string {
@@ -54,16 +71,38 @@ pub fn encode_walpha(input string, alphabet &Alphabet) string {
 
 	return out[..sz].bytestr()
 }
+// Decodes base58 bytes into an unsigned integer using the bitcoin alphabet
+pub fn decode_u32(input string) ?u32 {
+	return decode_uint_walpha(input, alphabets['btc'])
+}
 
-// decodes base58 encoded bytes using the bitcoin alphabet
+// Decodes base58 bytes into an unsigned integer using a custom alphabet
+pub fn decode_u32_walpha(input string, alphabet &Alphabet) ?u32 {
+	mut total := u32(0)		// to hold the results
+	b58 := input.reverse()
+	for i, ch in b58 {
+		ch_i := alphabet.encode.bytestr().index_byte(ch)
+		if ch_i == -1 {
+			return error(@MOD + '.' + @FN + ': input string contains values not found in the provided alphabet')
+		}
+
+		val := ch_i * math.pow(58, i)
+
+		total += u32(val)
+	}
+
+	return total
+}
+
+// decodes base58 bytes using the bitcoin alphabet
 pub fn decode(str string) ?string {
 	return decode_walpha(str, alphabets['btc'])
 }
 
-// decodes base58 encoded bytes using custom alphabet
+// decodes base58 bytes using custom alphabet
 pub fn decode_walpha(str string, alphabet &Alphabet) ?string {
 	if str.len == 0 {
-		return error(@MOD + ' > ' + @FN + ': string cannot be empty')
+		return error(@MOD + '.' + @FN + ': string cannot be empty')
 	}
 
 	zero := alphabet.encode[0]
@@ -83,10 +122,10 @@ pub fn decode_walpha(str string, alphabet &Alphabet) ?string {
 
 	for _, r in str {
 		if r > 127 {
-			return error(@MOD + ' > ' + @FN + ': high-bit set on invalid digit; outside of ascii range ($r)')
+			return error(@MOD + '.' + @FN + ': high-bit set on invalid digit; outside of ascii range ($r)')
 		}
 		if alphabet.decode[r] == -1 {
-			return error(@MOD + ' > ' + @FN + ': invalid base58 digit ($r)')
+			return error(@MOD + '.' + @FN + ': invalid base58 digit ($r)')
 		}
 
 		c = u64(alphabet.decode[r])
