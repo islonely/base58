@@ -2,12 +2,12 @@ module base58
 
 import math
 
-// Encodes any integer type to base58 string with bitcoin alphabet
+// encode_int encodes any integer type to base58 string with bitcoin alphabet
 pub fn encode_int<T>(input T) ?string {
 	return encode_int_walpha<T>(input, alphabets['btc'])
 }
 
-// Encodes any integer type to base58 string with custom alphabet
+// encode_int_walpha any integer type to base58 string with custom alphabet
 pub fn encode_int_walpha<T>(input T, alphabet &Alphabet) ?string {
 	tp := typeof(input).name
 	match tp {
@@ -34,12 +34,12 @@ pub fn encode_int_walpha<T>(input T, alphabet &Alphabet) ?string {
 	}
 }
 
-// Encode byte array to base58 with Bitcoin alphabet
+// encode encodes byte array to base58 with Bitcoin alphabet
 pub fn encode(input string) string {
 	return encode_walpha(input, alphabets['btc'])
 }
 
-// Encode byte array to base58 with custom aplhabet
+// encode_walpha encodes byte array to base58 with custom aplhabet
 pub fn encode_walpha(input string, alphabet &Alphabet) string {
 	bin := input.bytes()
 	mut sz := bin.len
@@ -49,7 +49,7 @@ pub fn encode_walpha(input string, alphabet &Alphabet) string {
 		zcount++
 	}
 
-	// It is cruscial to make this as short as possible, especially for
+	// It is crucial to make this as short as possible, especially for
 	// the usual case of bitcoin addresses
 	sz = zcount +
 			// integer simplification of
@@ -85,12 +85,12 @@ pub fn encode_walpha(input string, alphabet &Alphabet) string {
 	return out[..sz].bytestr()
 }
 
-// Decodes base58 string to an integer with bitcoin alphabet
+// decode_int decodes base58 string to an integer with bitcoin alphabet
 pub fn decode_int<T>(input string) ?T {
 	return decode_int_walpha<T>(input, alphabets['btc'])
 }
 
-// Decodes base58 string to an integer with custom alphabet
+// decode_int_walpha decodes base58 string to an integer with custom alphabet
 pub fn decode_int_walpha<T>(input string, alphabet &Alphabet) ?T {
 	mut total := T(0)		// to hold the results
 	b58 := input.reverse()
@@ -108,12 +108,12 @@ pub fn decode_int_walpha<T>(input string, alphabet &Alphabet) ?T {
 	return total
 }
 
-// decodes base58 bytes using the bitcoin alphabet
+// decode decodes base58 bytes using the bitcoin alphabet
 pub fn decode(str string) ?string {
 	return decode_walpha(str, alphabets['btc'])
 }
 
-// decodes base58 bytes using custom alphabet
+// decode_walpha decodes base58 bytes using custom alphabet
 pub fn decode_walpha(str string, alphabet &Alphabet) ?string {
 	if str.len == 0 {
 		return error(@MOD + '.' + @FN + ': string cannot be empty')

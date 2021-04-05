@@ -60,6 +60,9 @@ fn main() {
 }
 ```
 
+## Documentation
+[IPFS Gateway](https://gateway.ipfs.io/ipfs/bafybeihqh4zx6iwelxynenermo67krtoqs43pdhc2zq5n4h2bbhkqkbi6e/base58.html)
+
 ### Donations
 Pls, I'm broke lol
 

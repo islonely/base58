@@ -8,12 +8,15 @@ const(
 	}
 )
 
+// Alphabet is the series of characters that an input
+// will be encoded to and a decode table.
 struct Alphabet {
 mut:
 	decode []i8 = []i8{len: 128}
 	encode []byte = []byte{len: 58}
 }
 
+// str returns an Alphabet encode table byte array as a string
 pub fn (alphabet &Alphabet) str() string {
 	mut str := []byte{}
 	for entry in alphabet.encode {
@@ -22,6 +25,8 @@ pub fn (alphabet &Alphabet) str() string {
 	return str.bytestr()
 }
 
+// new_alphabet instantiates an Alphabet object based on
+// the provided characters
 pub fn new_alphabet(str string) &Alphabet {
 	if str.len != 58 {
 		panic('base58 > new_alphabet(string): string must be 58 characters in length')
