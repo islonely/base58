@@ -1,4 +1,4 @@
-# Fast Implementation Base58 encoding/decoding
+# Base58 encoding/decoding in V
 Fast implementation of Base58 encoding and decoding in V.
 
 Base algorithm is adapted from [mr-tron/base58](https://github.com/mr-tron/base58)
@@ -18,7 +18,7 @@ Manual install:
 ```bash
 $ mkdir modules
 $ cd modules
-$ git clone https://github.com/is-lonely/base58
+$ git clone https://github.com/is-lonely/base58 ~/.vmodules/base58
 ```
 ## Usage
 The default base58 alphabet is the same as the Bitcoin alphabet.
