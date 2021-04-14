@@ -12,12 +12,10 @@ $ v install islonely.base58
 ```
 VPKG:
 ```bash
-vpkg get base58
+$ vpkg get base58
 ```
 Manual install:
 ```bash
-$ mkdir modules
-$ cd modules
 $ git clone https://github.com/is-lonely/base58 ~/.vmodules/base58
 ```
 ## Usage
