@@ -1,10 +1,10 @@
 module base58
 
-const(
-	alphabets = {
-		'btc':			new_alphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
-		'flickr': 		new_alphabet('123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ')
-		'ripple':		new_alphabet('rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz')
+const (
+	alphabets = map{
+		'btc':    new_alphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+		'flickr': new_alphabet('123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ')
+		'ripple': new_alphabet('rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz')
 	}
 )
 
@@ -12,7 +12,7 @@ const(
 // will be encoded to and a decode table.
 struct Alphabet {
 mut:
-	decode []i8 = []i8{len: 128}
+	decode []i8   = []i8{len: 128}
 	encode []byte = []byte{len: 58}
 }
 
