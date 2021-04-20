@@ -1,18 +1,16 @@
 module base58
 
-const (
-	alphabets = map{
-		'btc':    new_alphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
-		'flickr': new_alphabet('123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ')
-		'ripple': new_alphabet('rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz')
-	}
-)
+pub const alphabets = map{
+	'btc':    new_alphabet('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+	'flickr': new_alphabet('123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ')
+	'ripple': new_alphabet('rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz')
+}
 
 // Alphabet is the series of characters that an input
 // will be encoded to and a decode table.
 struct Alphabet {
 mut:
-	decode []i8   = []i8{len: 128}
+	decode []i8   = []i8{len: 128, init: -1}
 	encode []byte = []byte{len: 58}
 }
 
@@ -34,9 +32,6 @@ pub fn new_alphabet(str string) &Alphabet {
 
 	mut ret := &Alphabet{}
 	copy(ret.encode, str.bytes())
-	for i, _ in ret.decode {
-		ret.decode[i] = -1
-	}
 
 	mut distinct := 0
 	for i, b in ret.encode {

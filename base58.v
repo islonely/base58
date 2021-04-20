@@ -64,7 +64,7 @@ pub fn encode_walpha(input string, alphabet &Alphabet) string {
 	mut carry := u32(0)
 
 	high = sz - 1
-	for _, b in bin {
+	for b in bin {
 		i = sz - 1
 		for carry = u32(b); i > high || carry != 0; i-- {
 			carry = carry + 256 * u32(out[i])
